@@ -7,12 +7,12 @@ This project simulates real-world banking operations and focuses on structured p
 
 ## 📌 Features
 
-- 🔐 User Authentication System (Login / Logout)
+<!--- 🔐 User Authentication System (Login / Logout)
 - 👥 User Management
 - 🛡️ Role-Based Access Control (Permissions)
-- 💰 Account Management
+- 💰 Account Management-->
 - 💸 Deposit & Withdraw Operations
-- 🔄 Money Transfer Between Accounts
+<!--- 🔄 Money Transfer Between Accounts-->
 - 📊 Transaction Handling
 - 💾 Data Persistence using Files
 
@@ -33,7 +33,7 @@ This project is built using:
 
 - Language: C++
 - Storage: File System (TXT / Data Files)
-- IDE: Visual Studio / VS Code
+- IDE: Visual Studio
 
 ---
 
