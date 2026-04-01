@@ -7,11 +7,11 @@ This project simulates real-world banking operations and focuses on structured p
 
 ## 📌 Features
 
-<!--- 🔐 User Authentication System (Login / Logout)
+- 🔐 User Authentication System (Login / Logout)
 - 👥 User Management
 - 🛡️ Role-Based Access Control (Permissions)
 - 💰 Account Management
-- 🔄 Money Transfer Between Accounts-->
+<!--- 🔄 Money Transfer Between Accounts-->
 - 💸 Deposit & Withdraw Operations
 - 📊 Transaction Handling
 - 💾 Data Persistence using Files
