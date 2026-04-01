@@ -1,62 +1,10 @@
 ﻿#pragma once
-
 #include <iostream>
 #include <string>
-#include <cctype>
-#include <algorithm>
 
 using namespace std;
 
 namespace format {
-
-    //*************************************************************
-    //Input Functions.
-    //*************************************************************
-    double readPositiveNumber(string message) {
-        double number;
-        cout << message;
-        cin >> number;
-        while (cin.fail() || number < 0) {
-            cin.clear();
-            cin.ignore(std::numeric_limits < std::streamsize > ::max(), '\n');
-            cout << "Invalid input, enter a valid number : ";
-            cin >> number;
-        }
-        return number;
-    }
-
-    int readNumberInRange(string message, int from, int to) {
-        int number;
-        cout << message;
-        cin >> number;
-        while (cin.fail() || number < from || number > to) {
-            cin.clear();
-            cin.ignore(std::numeric_limits < std::streamsize > ::max(), '\n');
-            cout << "Invalid input, enter a valid number from " << from << " to " << to << " : ";
-            cin >> number;
-        }
-        return number;
-    }
-
-    string readString(string message) {
-        string str;
-        cout << message;
-        getline(cin >> ws, str);
-        return str;
-    }
-    
-    char readChar(string message) {
-        char character;
-        cout << message;
-        cin >> character;
-        while (cin.fail()) {
-            cin.clear();
-            cin.ignore(std::numeric_limits < std::streamsize > ::max(), '\n');
-            cout << "Invalid input, enter a valid character : ";
-            cin >> character;
-        }
-        return character;
-    }
     //*************************************************************
     //Formating Functions.
     //*************************************************************
@@ -75,7 +23,7 @@ namespace format {
     }
 
     string formatString(short width, string str, enAlign align = LEFT, char fillChar = ' ') {
-        if (str.length() >= static_cast<size_t>(width)) {
+        if (str.length() >= width) {
             return str;
         }
         short space = width - str.length();
@@ -95,6 +43,35 @@ namespace format {
         }
         }
         return result;
+    }
+
+    vector < string > splitString(string sentence, string delimiter) {
+        vector < string > words;
+        short position;
+        string word = "";
+        while ((position = sentence.find(delimiter)) != std::string::npos) {
+            word = sentence.substr(0, position);
+            if (word != "") {
+                words.push_back(word);
+            }
+            sentence.erase(0, position + delimiter.length());
+        }
+        if (sentence != "") {
+            words.push_back(sentence);
+        }
+        return words;
+    }
+
+    void printHeader(string header, enAlign align = CENTER) {
+        cout << characters('-', 40) << endl;
+        cout << "|" << formatString(38, header, align) << "|" << endl;
+        cout << characters('-', 40) << endl;
+    }
+
+    void printFooter(string footer, enAlign align = CENTER) {
+        cout << characters('-', 40) << endl;
+        cout << "|" << formatString(38, footer, align) << "|" << endl;
+        cout << characters('-', 40) << endl;
     }
     //*************************************************************
 }
