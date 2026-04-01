@@ -11,10 +11,10 @@ This project simulates real-world banking operations and focuses on structured p
 - 👥 User Management
 - 🛡️ Role-Based Access Control (Permissions)
 - 💰 Account Management
-<!--- 🔄 Money Transfer Between Accounts-->
 - 💸 Deposit & Withdraw Operations
 - 📊 Transaction Handling
 - 💾 Data Persistence using Files
+<!--- 🔄 Money Transfer Between Accounts-->
 
 ---
 
