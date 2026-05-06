@@ -21,7 +21,8 @@ void handleMainMenu();
 void handleTransactionsMenu();
 void handleUsersMenu();
 
-enum enMainMenuOption {
+enum enMainMenuOption
+{
     Show_Client = 1,
     Add_Client = 2,
     Delete_Client = 3,
@@ -32,14 +33,16 @@ enum enMainMenuOption {
     Logout = 8
 };
 
-enum enTransactionsMenuOption {
+enum enTransactionsMenuOption
+{
     Deposit = 1,
     Withdraw = 2,
     TotalBalance = 3,
     ExitTransactionsMenu = 4
 };
 
-enum enUsersMenuOption {
+enum enUsersMenuOption
+{
     Show_User = 1,
     Add_User = 2,
     Delete_User = 3,
@@ -50,20 +53,23 @@ enum enUsersMenuOption {
 
 User currentUser;
 
-void displayLoginMenu() {
-    system("cls");
+void displayLoginMenu()
+{
+    clearScreen();
     printHeader("| Login |");
 }
-void displayPermissionsDeniedMenu() {
-    system("cls");
-    system("color 4F");
+void displayPermissionsDeniedMenu()
+{
+    clearScreen();
     printHeader("| Permissions Denied |");
     cout << "\nYou don't have permissions to do this :(" << endl;
-    cout << "Please contact your admin...\n" << endl;
+    cout << "Please contact your admin...\n"
+         << endl;
     cout << "\a";
 }
-void displayMainMenu() {
-    system("cls");
+void displayMainMenu()
+{
+    clearScreen();
     printHeader(" | Bank Management |");
     cout << "|" << "    [1] Show Clients List" << formatString(14, "|", RIGHT) << endl;
     cout << "|" << "    [2] Add New Client" << formatString(17, "|", RIGHT) << endl;
@@ -75,8 +81,9 @@ void displayMainMenu() {
     cout << "|" << "    [8] Logout" << formatString(25, "|", RIGHT) << endl;
     printFooter("| Made By 3HD ", RIGHT);
 }
-void displayTransactionsMenu() {
-    system("cls");
+void displayTransactionsMenu()
+{
+    clearScreen();
     printHeader("| Transactions |");
     cout << "|" << "    [1] Deposit" << formatString(24, "|", RIGHT) << endl;
     cout << "|" << "    [2] Withdraw" << formatString(23, "|", RIGHT) << endl;
@@ -84,8 +91,9 @@ void displayTransactionsMenu() {
     cout << "|" << "    [4] Exit" << formatString(27, "|", RIGHT) << endl;
     cout << characters('-', 40) << endl;
 }
-void displayUsersMenu() {
-    system("cls");
+void displayUsersMenu()
+{
+    clearScreen();
     printHeader(" | Users |");
     cout << "|" << "    [1] Show Users List" << formatString(16, "|", RIGHT) << endl;
     cout << "|" << "    [2] Add New User" << formatString(19, "|", RIGHT) << endl;
@@ -96,37 +104,39 @@ void displayUsersMenu() {
     cout << characters('-', 40) << endl;
 }
 
-//Perform Users Menu Option;
-void performUsersMenuOption(enUsersMenuOption choice) {
-    switch (choice) {
+// Perform Users Menu Option;
+void performUsersMenuOption(enUsersMenuOption choice)
+{
+    switch (choice)
+    {
     case enUsersMenuOption::Show_User:
-        system("cls");
+        clearScreen();
         showUsersList();
-        system("pause");
+        pauseScreen("Press ENTER key to back to users menu...");
         handleUsersMenu();
         break;
     case enUsersMenuOption::Add_User:
-        system("cls");
+        clearScreen();
         addUser();
-        system("pause");
+        pauseScreen("Press ENTER key to back to users menu...");
         handleUsersMenu();
         break;
     case enUsersMenuOption::Delete_User:
-        system("cls");
+        clearScreen();
         removeUser();
-        system("pause");
+        pauseScreen("Press ENTER key to back to users menu...");
         handleUsersMenu();
         break;
     case enUsersMenuOption::Update_User:
-        system("cls");
+        clearScreen();
         updateUser();
-        system("pause");
+        pauseScreen("Press ENTER key to back to users menu...");
         handleUsersMenu();
         break;
     case enUsersMenuOption::Find_User:
-        system("cls");
+        clearScreen();
         searchForUser();
-        system("pause");
+        pauseScreen("Press ENTER key to back to users menu...");
         handleUsersMenu();
         break;
     case enUsersMenuOption::ExitUsersMenu:
@@ -136,32 +146,35 @@ void performUsersMenuOption(enUsersMenuOption choice) {
         break;
     }
 }
-//Show Users Menu.
-void handleUsersMenu() {
+// Show Users Menu.
+void handleUsersMenu()
+{
     displayUsersMenu();
     enUsersMenuOption choice = enUsersMenuOption(readNumberInRange("Choose any service [1 -> 6] : ", 1, 6));
     performUsersMenuOption(choice);
 }
 
-//Perform Transactions Menu Option;
-void performTransactionsMenuOption(enTransactionsMenuOption choice) {
-    switch (choice) {
+// Perform Transactions Menu Option;
+void performTransactionsMenuOption(enTransactionsMenuOption choice)
+{
+    switch (choice)
+    {
     case enTransactionsMenuOption::Deposit:
-        system("cls");
+        clearScreen();
         deposit();
-        system("pause");
+        pauseScreen("Press ENTER key to back to transactions menu...");
         handleTransactionsMenu();
         break;
     case enTransactionsMenuOption::Withdraw:
-        system("cls");
+        clearScreen();
         withdraw();
-        system("pause");
+        pauseScreen("Press ENTER key to back to transactions menu...");
         handleTransactionsMenu();
         break;
     case enTransactionsMenuOption::TotalBalance:
-        system("cls");
+        clearScreen();
         displayTotalBalance();
-        system("pause");
+        pauseScreen("Press ENTER key to back to transactions menu...");
         handleTransactionsMenu();
         break;
     case enTransactionsMenuOption::ExitTransactionsMenu:
@@ -170,111 +183,121 @@ void performTransactionsMenuOption(enTransactionsMenuOption choice) {
         cout << "Error!" << endl;
     }
 }
-//Show Transactions Menu.
-void handleTransactionsMenu() {
+// Show Transactions Menu.
+void handleTransactionsMenu()
+{
     displayTransactionsMenu();
     enTransactionsMenuOption choice = enTransactionsMenuOption(readNumberInRange("Choose any transaction [1 -> 4] : ", 1, 4));
     performTransactionsMenuOption(choice);
 }
 
-//Perform Main Menu Option.
-void performMainMenuOption(enMainMenuOption choice) {
-    switch (choice) {
+// Perform Main Menu Option.
+void performMainMenuOption(enMainMenuOption choice)
+{
+    switch (choice)
+    {
     case enMainMenuOption::Show_Client:
-        if (hasPermission(currentUser.permission, enPermissions::ShowClientList)) {
-            system("cls");
+        if (hasPermission(currentUser.permission, enPermissions::ShowClientList))
+        {
+            clearScreen();
             showClientsList();
-            system("pause");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
-        else {
+        else
+        {
             displayPermissionsDeniedMenu();
-            system("pause");
-            system("color 0F");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
         break;
     case enMainMenuOption::Add_Client:
-        if (hasPermission(currentUser.permission, enPermissions::AddClient)) {
-            system("cls");
+        if (hasPermission(currentUser.permission, enPermissions::AddClient))
+        {
+            clearScreen();
             addClient();
-            system("pause");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
-        else {
+        else
+        {
             displayPermissionsDeniedMenu();
-            system("pause");
-            system("color 0F");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
         break;
     case enMainMenuOption::Delete_Client:
-        if (hasPermission(currentUser.permission, enPermissions::DeleteClient)) {
-            system("cls");
+        if (hasPermission(currentUser.permission, enPermissions::DeleteClient))
+        {
+            clearScreen();
             removeClient();
-            system("pause");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
-        else {
+        else
+        {
             displayPermissionsDeniedMenu();
-            system("pause");
-            system("color 0F");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
         break;
     case enMainMenuOption::Update_Client:
-        if (hasPermission(currentUser.permission, enPermissions::UpdateClient)) {
-            system("cls");
+        if (hasPermission(currentUser.permission, enPermissions::UpdateClient))
+        {
+            clearScreen();
             updateClient();
-            system("pause");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
-        else {
+        else
+        {
             displayPermissionsDeniedMenu();
-            system("pause");
-            system("color 0F");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
         break;
     case enMainMenuOption::Find_Client:
-        if (hasPermission(currentUser.permission, enPermissions::FindClient)) {
-            system("cls");
+        if (hasPermission(currentUser.permission, enPermissions::FindClient))
+        {
+            clearScreen();
             searchForClient();
-            system("pause");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
-        else {
+        else
+        {
             displayPermissionsDeniedMenu();
-            system("pause");
-            system("color 0F");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
         break;
     case enMainMenuOption::Transaction:
-        if (hasPermission(currentUser.permission, enPermissions::Transactions)) {
+        if (hasPermission(currentUser.permission, enPermissions::Transactions))
+        {
             handleTransactionsMenu();
             handleMainMenu();
         }
-        else {
+        else
+        {
             displayPermissionsDeniedMenu();
-            system("pause");
-            system("color 0F");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
         break;
     case enMainMenuOption::Users:
-        if (hasPermission(currentUser.permission, enPermissions::ManageUsers)) {
+        if (hasPermission(currentUser.permission, enPermissions::ManageUsers))
+        {
             handleUsersMenu();
             handleMainMenu();
         }
-        else {
+        else
+        {
             displayPermissionsDeniedMenu();
-            system("pause");
-            system("color 0F");
+            pauseScreen("Press ENTER key to back to main menu...");
             handleMainMenu();
         }
         break;
-    case enMainMenuOption::Logout:        
+    case enMainMenuOption::Logout:
         login();
         break;
     default:
@@ -282,49 +305,60 @@ void performMainMenuOption(enMainMenuOption choice) {
         break;
     }
 }
-//Show Main Menu.
-void handleMainMenu() {
+// Show Main Menu.
+void handleMainMenu()
+{
     displayMainMenu();
     enMainMenuOption choice = enMainMenuOption(readNumberInRange("Choose any service [1 -> 8] : ", 1, 8));
     performMainMenuOption(choice);
 }
 
-//Find User In File.
-bool isUserFound(User userInfo, User &currentUser) {
-    for (User user : vUsers) {
-        if (userInfo.username == user.username && userInfo.password == user.password) {
+// Find User In File.
+bool isUserFound(User userInfo)
+{
+    vector<User> vUsers = loadUsersDataFromFile();
+    for (User user : vUsers)
+    {
+        if (userInfo.username == user.username && userInfo.password == user.password)
+        {
             currentUser = user;
             return true;
         }
     }
     return false;
 }
-//Read Login Info.
-User readLoginInfo() {
+// Read Login Info.
+User readLoginInfo()
+{
     User user;
     user.username = readString("Enter user name : ");
     user.password = readString("Enter password : ");
     return user;
 }
-//Login Menu
-void login() {
+// Login Menu
+void login()
+{
     displayLoginMenu();
-    bool isExist = false;
-    do {
+    bool isFound = false;
+    do
+    {
         User user = readLoginInfo();
-        if (isUserFound(user, currentUser)) {
-            isExist = true;
+        if (isUserFound(user))
+        {
+            isFound = true;
             handleMainMenu();
         }
-        else {
+        else
+        {
             displayLoginMenu();
             cout << "Invaled username/password :(" << endl;
         }
-    } while (isExist == false);
+    } while (isFound == false);
 }
 
-//Start App.
-int main() {    
+// Start App.
+int main()
+{
     login();
     return 0;
 }
