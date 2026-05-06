@@ -14,7 +14,7 @@ namespace transactions {
     //Trasactions Functions.
     //*************************************************************
     //Add Amount To Balance Withdraw/Deposit.
-    void addAmountToBalance(double amount, string accountNumberForDeposit, string transactionStatus) {
+    void addAmountToBalance(double amount, string accountNumberForDeposit, string transactionStatus, vector<Client> &vClients) {
         for (Client& clientData : vClients) {
             if (clientData.accountNumber == accountNumberForDeposit) {
                 clientData.balance += amount;
@@ -34,8 +34,9 @@ namespace transactions {
             double amount = readPositiveNumber("\nEnter deposit amount : ");
             char choice = readChar("\nAre you sure you want to perform this transaction? Y / N : ");
             if (toupper(choice) == 'Y') {
-                addAmountToBalance(amount, accountNumberForDeposit, "\nDeposit successfully, ");
-                saveClientDataFromVectorToFile();
+                vector<Client> vClients = loadClientsDataFromFile();
+                addAmountToBalance(amount, accountNumberForDeposit, "\nDeposit successfully, ", vClients);
+                saveClientDataFromVectorToFile(vClients);
             }
             cout << endl;
         }
@@ -66,8 +67,9 @@ namespace transactions {
             double amount = readWithdrawAmount(client);
             char choice = readChar("\nAre you sure you want to perform this transaction? Y / N : ");
             if (toupper(choice) == 'Y') {
-                addAmountToBalance(-1 * amount, accountNumberForwithdraw, "\nWithdraw successfully, ");
-                saveClientDataFromVectorToFile();
+                vector<Client> vClients = loadClientsDataFromFile();
+                addAmountToBalance(-1 * amount, accountNumberForwithdraw, "\nWithdraw successfully, ", vClients);
+                saveClientDataFromVectorToFile(vClients);
             }
             cout << endl;
         }
@@ -84,6 +86,7 @@ namespace transactions {
     }
     //[3] Display Total Balance.
     void displayTotalBalance() {
+        vector<Client> vClients = loadClientsDataFromFile();
         cout << characters('-', 65) << endl;
         cout << "|" << formatString(63, "| Balance List (" + to_string(vClients.size()) + ") Client(s) |", CENTER) << "|" << endl;
         cout << characters('-', 65) << endl;

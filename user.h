@@ -56,8 +56,6 @@ namespace user {
         file.close();
         return vUsers;
     }
-    //Load Users Data From File To Vector.
-    vector < User > vUsers = loadUsersDataFromFile();
     //Counvert User Recorded Data To Line.
     string convertRecordToLine(User userRecord, string separator) {
         string userDataInLine = "";
@@ -67,7 +65,7 @@ namespace user {
         return userDataInLine;
     }
     //Save Users Data From Vector To File After Counvert Them To Lines.
-    void saveUsersDataFromVectorToFile() {
+    void saveUsersDataFromVectorToFile(vector < User > vUsers) {
         fstream file;
         file.open(fileName_USERS, ios::out);
         if (file.is_open()) {
@@ -114,6 +112,7 @@ namespace user {
     string readUsername() {
         string username;
         bool isExisted;
+        vector < User > vUsers = loadUsersDataFromFile();
         cout << "Enter username : ";
         do {
             isExisted = false;
@@ -197,6 +196,7 @@ namespace user {
     }
     //[1] Show Users List.
     void showUsersList() {
+        vector < User > vUsers = loadUsersDataFromFile();
         cout << characters('-', 91) << endl;
         cout << "|" << formatString(89, "| Users List (" + to_string(vUsers.size()) + ") User(s) |", CENTER) << "|" << endl;
         cout << characters('-', 91) << endl;
@@ -232,13 +232,13 @@ namespace user {
         printHeader("Add New User");
         cout << endl;
         User user = readNewUserData();
-        vUsers.push_back(user);
         cout << "\nUser added successfully.\n" << endl;
         addUserDataToFile(user);
     }
 
     //Check USer If Is Found Or Not.
     bool isUserFound(string username, User& user) {
+        vector < User > vUsers = loadUsersDataFromFile();
         for (User& userData : vUsers) {
             if (userData.username == username) {
                 user = userData;
@@ -249,7 +249,7 @@ namespace user {
     }
 
     //Delete User Data.
-    void deleteUserData(string usernameToDelete) {
+    void deleteUserData(string usernameToDelete, vector < User > &vUsers) {
         vector <User>::iterator it;
         for (int i = 0; i < vUsers.size(); ++i) {
             if (vUsers[i].username == usernameToDelete) {
@@ -283,9 +283,10 @@ namespace user {
                 showUserData(user);
                 char choice = readChar("\nAre you sure you want to delete this user? Y / N ? ");
                 if (toupper(choice) == 'Y') {
-                    deleteUserData(usernameToDelete);
+                    vector < User > vUsers = loadUsersDataFromFile();
+                    deleteUserData(usernameToDelete, vUsers);
                     cout << "\nUser deleted successfully." << endl;
-                    saveUsersDataFromVectorToFile();
+                    saveUsersDataFromVectorToFile(vUsers);
                 }
                 cout << endl;
             }
@@ -304,7 +305,7 @@ namespace user {
         return newUserData;
     }
     //Update User Data.
-    void updateUserData(string usernameToUpdate) {
+    void updateUserData(string usernameToUpdate, vector < User > &vUsers) {
         User newUserData = changeUserData(usernameToUpdate);
         for (User& userData : vUsers) {
             if (userData.username == usernameToUpdate) {
@@ -326,9 +327,10 @@ namespace user {
                 showUserData(user);
                 char choice = readChar("\nAre you sure you want to update this user data? Y / N ? ");
                 if (toupper(choice) == 'Y') {
-                    updateUserData(usernameToUpdate);
+                    vector < User > vUsers = loadUsersDataFromFile();
+                    updateUserData(usernameToUpdate, vUsers);
                     cout << "\nUser data updated successfully." << endl;
-                    saveUsersDataFromVectorToFile();
+                    saveUsersDataFromVectorToFile(vUsers);
                 }
                 cout << endl;
             }
